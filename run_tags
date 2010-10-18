@@ -1,10 +1,10 @@
-#!/usr/local/bin/ruby
+#!/usr/bin/env ruby
 #-*-ruby-*-
 # A script to run ctags on all .rb files in a project. Can be run on
 # the current dir, called from a git callback, or install itself as a
 # git post-merge and post-commit callback.
 
-CTAGS = '/usr/bin/ctags'
+CTAGS = `which ctags`
 HOOKS = %w{ post-merge post-commit post-checkout }
 HOOKS_DIR = '.git/hooks'
 
