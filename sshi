@@ -1,0 +1,5 @@
+#!/bin/bash
+
+path=$1
+user_and_path=`echo $1 | sed 's/^ssh:\/\///'`
+ssh -i ~/.ssh/id_rsa $user_and_path
