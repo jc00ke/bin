@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+
+
+class IpInfoDb
+  attr_reader :source
+
+  URI = "http://ipinfodb.com"
+
+  def initialize
+    @source = open(URI).read
+  end
+
+  def self.get_lat_long
+    new.get_lat_long
+  end
+
+  def latitude
+    @latitude ||= get("Latitude")
+  end
+
+  def longitude
+    @longitude ||= get("Longitude")
+  end
+
+  def get_lat_long
+    "#{latitude}:#{longitude}"
+  end
+
+  private
+  def get(which)
+    source.match(%r{<li>#{which} : (.*)</li>}) && $1
+  end
+end
+
+puts IpInfoDb.get_lat_long
