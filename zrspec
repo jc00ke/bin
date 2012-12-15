@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if command -v zeus; then
+  zeus rspec $@
+else
+  rspec $@
+fi
