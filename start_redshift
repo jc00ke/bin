@@ -1,0 +1,3 @@
+#!/bin/sh
+
+gtk-redshift -l $(get_lat_long) &
