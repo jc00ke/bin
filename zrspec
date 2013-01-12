@@ -3,5 +3,6 @@
 if command -v zeus; then
   zeus rspec $@
 else
-  rspec $@
+  bundle exec rspec $@
 fi
+
