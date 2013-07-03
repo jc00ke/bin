@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if command -v zeus; then
-  zeus rspec $@
+if [ -S .zeus.sock ]; then
+  RACK_ENV=test zeus rspec "$@"
 else
-  bundle exec rspec $@
+  bundle exec rspec "$@"
 fi
 
