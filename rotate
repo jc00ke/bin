@@ -1,0 +1,26 @@
+#!/bin/bash
+
+DIRECTION="$1"
+shift
+
+rotate_file() {
+  direction="$1"
+  shift
+
+  for f in "$@"; do
+    convert -rotate $direction -quality 100 "$f" "$f"
+    shift
+  done
+}
+
+case "$DIRECTION" in
+  "r")
+    rotate_file 90 $@
+  ;;
+  "l")
+    rotate_file -90 $@
+  ;;
+esac
+
+exit 0
+

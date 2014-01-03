@@ -1,0 +1,16 @@
+#!/bin/bash
+
+PERCENT="$1"
+shift
+
+for f in "$@"; do
+  name=$(basename "$f")
+  dir="$(dirname "$f")"
+  ext="${name##*.}"
+  name="${name%.*}"
+
+  convert "$f" -resize "$PERCENT%" -quality 100 "$dir/$name-$PERCENT%.$ext"
+done
+
+exit 0
+
