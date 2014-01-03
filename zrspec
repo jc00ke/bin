@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -S .zeus.sock ]; then
-  RACK_ENV=test zeus rspec "$@"
+if [ -e config/spring.rb ]; then
+  ./bin/rspec "$@"
 else
   bundle exec rspec "$@"
 fi
