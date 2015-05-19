@@ -3,24 +3,19 @@
 DIRECTION="$1"
 shift
 
-rotate_file() {
-  direction="$1"
-  shift
-
-  for f in "$@"; do
-    convert -rotate $direction -quality 100 "$f" "$f"
-    shift
-  done
-}
-
 case "$DIRECTION" in
   "r")
-    rotate_file 90 $@
+    while (( "$#" )); do
+      convert -rotate 90 -quality 100 "$1" "$1"
+      shift
+    done
   ;;
   "l")
-    rotate_file -90 $@
+    while (( "$#" )); do
+      convert -rotate -90 -quality 100 "$1" "$1"
+      shift
+    done
   ;;
 esac
 
 exit 0
-
