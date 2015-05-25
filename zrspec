@@ -1,6 +1,16 @@
 #!/bin/sh
+DIR="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)"
+IQDEV="$DIR/../iqtools/bin/iqdev"
 
-if [ -e config/spring.rb ]; then
+if [ -e "$IQDEV" ]; then
+  #len_dir="$(expr ${#DIR} + 2)"
+  #script="$@"
+  #len_script="$(expr ${#script})"
+  #len_relative_file="$(expr $len_script - $len_dir + 1)"
+  #relative_file="$(expr substr $script $len_dir $len_relative_file)"
+  #exit 1
+  $IQDEV rspec "$@"
+elif [ -e bin/rspec ]; then
   ./bin/rspec "$@"
 else
   bundle exec rspec "$@"
