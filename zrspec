@@ -1,10 +1,6 @@
 #!/bin/sh
-DIR="$(cd "$(dirname "$BASH_SOURCE[0]")" && pwd)"
-IQDEV="$DIR/../iqtools/bin/iqdev"
 
-if [ -e "$IQDEV" ]; then
-  $IQDEV rspec "$@"
-elif [ -e bin/rspec ]; then
+if [ -e bin/rspec ]; then
   ./bin/rspec "$@"
 else
   bundle exec rspec "$@"
