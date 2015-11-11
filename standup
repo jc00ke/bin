@@ -1,0 +1,9 @@
+#!/bin/bash
+
+yesterday="$(curl -s "http://faker.hook.io?property=hacker.phrase&locale=en")"
+today="$(curl -s "http://faker.hook.io?property=hacker.phrase&locale=en")"
+echo "*yesterday*"
+echo "${yesterday:1: -1}"
+echo ""
+echo "*today*"
+echo "${today:1: -1}"
