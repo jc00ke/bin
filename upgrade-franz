@@ -1,0 +1,16 @@
+#!/bin/bash
+
+version=$1
+franz="Franz-linux-x64-$version"
+
+if [ -z "$version" ]; then
+  echo "You must pass in the version, eg: 3.1.0"
+  exit 42
+fi
+
+cd $HOME/Downloads
+mkdir "$franz"
+tar xf "$franz.tgz" -C "$franz"
+
+sudo rm -rf /opt/Franz/linux64
+sudo mv "$franz" /opt/Franz/linux64
