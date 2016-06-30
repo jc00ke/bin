@@ -1,0 +1,12 @@
+#!/bin/bash
+
+sudo ls /tmp > /dev/null
+
+cd $HOME/src/corebird
+
+if [[ $(git pull | grep "up to date") ]]; then
+  echo "Up to date, nothing to do."
+else
+  echo "let's build!"
+  ./autogen.sh && make && sudo make install
+fi
