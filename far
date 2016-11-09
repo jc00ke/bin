@@ -10,7 +10,7 @@ die() {
 
 usage() {
     cat 1>&2 <<-USAGE
-usage: $exe [ACK_OPTIONS] FIND REPLACE [FILES]
+usage: $exe [AG_OPTIONS] FIND REPLACE [FILES]
 
 Examples:
     # A simple, recursive, find and replace
@@ -28,9 +28,9 @@ USAGE
     exit 1
 }
 
-ACKOPTS=
+RGOPTS=
 while echo "$1" | grep -q "^-"; do
-    ACKOPTS="$ackopts $1"
+    RGOPTS="$rgopts $1"
     shift
 done
 
@@ -39,6 +39,6 @@ done
 
 from="$1" ; shift
 to="$1" ; shift
-src=$(ack -l $ACKOPTS "$from" $@)
+src=$(rg -l $RGOPTS "$from" $@)
 
 perl -p -i -e "s/$from/$to/g" $src
