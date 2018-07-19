@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo -n Password:
+read -s password
+echo
+hash="$(echo -n $password | openssl sha1 | awk '{ print $2 }')"
+upperCase="$(echo $hash | tr '[a-z]' '[A-Z]')"
+prefix="${upperCase:0:5}"
+response=$(curl -s https://api.pwnedpasswords.com/range/$prefix)
+while read -r line; do
+  lineOriginal="$prefix$line"
+  if [ "${lineOriginal:0:40}" == "$upperCase" ]; then
+    echo "Password breached."
+    exit 1
+  fi
+done <<< "$response"
+
+echo "Password not found in breached database."
+exit 0
