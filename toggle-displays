@@ -2,7 +2,7 @@
 intern=eDP1
 extern=DP2-2
 
-if xrandr | grep "$extern disconnected"; then
+if xrandr | grep "$extern connected"; then
   xrandr --output "$extern" --off --output "$intern" --auto
 else
   xrandr --output "$intern" --off --output "$extern" --auto
