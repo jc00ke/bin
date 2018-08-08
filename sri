@@ -1,0 +1,53 @@
+#!/bin/sh
+set -e
+
+exe=$(basename $0)
+
+die() {
+  echo 1>&2 "$1"
+  exit 1
+}
+
+usage() {
+  cat 1>&2 <<-USAGE
+usage: $exe URL [SHA ALGORITHM]
+
+Examples:
+  # default
+  $exe https://example.com/library.js
+
+  # setting the algorith
+  $exe https://example.com/library.js 512
+
+See also:
+  shasum(1), base64(1)
+USAGE
+  exit 1
+}
+
+check_for() {
+  command -v $1 >/dev/null 2>&1 || {
+    echo >&2 "$1 required";
+    exit 1;
+  }
+}
+
+check_for "curl"
+check_for "shasum"
+check_for "xxd"
+check_for "base64"
+
+RGOPTS=
+while echo "$1" | grep -q "^-"; do
+  RGOPTS="$rgopts $1"
+  shift
+done
+
+[ "$#" -lt 1 ] &&
+    usage
+
+resource="$1"
+algo="${2:-384}"
+
+hash=$(curl -s "$resource" | shasum -b -a "$algo" | xxd -r -p | base64)
+echo "sha$algo-$hash"
