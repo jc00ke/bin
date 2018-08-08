@@ -33,9 +33,7 @@ check_for() {
 }
 
 check_for "curl"
-check_for "shasum"
-check_for "xxd"
-check_for "base64"
+check_for "openssl"
 
 RGOPTS=
 while echo "$1" | grep -q "^-"; do
@@ -49,5 +47,5 @@ done
 resource="$1"
 algo="${2:-384}"
 
-hash=$(curl -s "$resource" | shasum -b -a "$algo" | xxd -r -p | base64)
+hash="$(curl -s $resource | openssl dgst -sha$algo -binary | openssl base64 -A)"
 echo "sha$algo-$hash"
